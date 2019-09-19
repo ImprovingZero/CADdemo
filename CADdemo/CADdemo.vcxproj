@@ -152,14 +152,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CADdemo.cpp" />
+    <ClCompile Include="Edge.cpp" />
+    <ClCompile Include="Face.cpp" />
     <ClCompile Include="Halfedge.cpp" />
     <ClCompile Include="item.cpp" />
+    <ClCompile Include="ItemManager.cpp" />
+    <ClCompile Include="Loop.cpp" />
+    <ClCompile Include="Solid.cpp" />
     <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Edge.h" />
+    <ClInclude Include="Face.h" />
     <ClInclude Include="geometry.h" />
     <ClInclude Include="Halfedge.h" />
     <ClInclude Include="item.h" />
+    <ClInclude Include="ItemManager.h" />
+    <ClInclude Include="Loop.h" />
+    <ClInclude Include="Solid.h" />
     <ClInclude Include="vec2.h" />
     <ClInclude Include="vec3.h" />
     <ClInclude Include="Vertex.h" />

@@ -2,9 +2,13 @@
 //
 
 #include <iostream>
-#include "geometry.h"
+#include "ItemManager.h"
 
 int main()
 {
     std::cout << "Hello World!\n";
+	using namespace geometry;
+	ItemManager model;
+	vec3 p(0.f, 0.f, 0.f);
+	model.kvfs(vec3(0.f,0.f,0.f));
 }

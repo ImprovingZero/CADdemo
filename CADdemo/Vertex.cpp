@@ -1,14 +1,14 @@
 #include "Vertex.h"
-geometry::Vertex::Vertex() :_pos(vec3(0.f, 0.f, 0.f)), _id(-1) {}
-
-geometry::Vertex::Vertex(float x, float y, float z, int id, HegInd hal)
-	:_pos(vec3(x, y, z)), _id(id), _halfedge(hal)
+namespace geometry
 {
+	Vertex::Vertex(vec3 p, Halfedge* halfedge)
+		:_halfedge(halfedge), _pos(p), _next(nullptr), _prev(nullptr) 
+	{
 
-}
+	}
 
-geometry::Vertex::Vertex(vec3 pos, int id, HegInd hal)
-	: _pos(pos), _id(id), _halfedge(hal)
-{
+	Vertex::~Vertex()
+	{
 
+	}
 }
