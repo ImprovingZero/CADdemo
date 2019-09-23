@@ -25,6 +25,9 @@ namespace geometry
 		Halfedge* getNext() const { return _next; }
 		Halfedge* getPrev() const { return _prev; }
 		Vertex* getFirstVertex() const { return _vertex; }
+
+		void setNext(Halfedge* next) { _next = next; }
+		void setPrev(Halfedge* prev) { _prev = prev; }
 	};
 }
 

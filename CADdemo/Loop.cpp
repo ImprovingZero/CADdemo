@@ -14,4 +14,18 @@ namespace geometry
 			if (q != nullptr) delete q;
 		}
 	}
+	Halfedge* Loop::insertAfter(Halfedge* e, Halfedge* a)
+	{
+		e->setNext(a->getNext());
+		a->setNext(a->getNext());
+		e->getNext()->setPrev(e);
+		e->setPrev(a);
+		return e;
+	}
+	Halfedge* Loop::insertAfter(Halfedge* e, Vertex* v)
+	{
+		Halfedge* a = findHalfedge(v);
+		insertAfter(e, a);
+		return e;
+	}
 }
