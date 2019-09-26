@@ -1,6 +1,7 @@
 #pragma once
 #include "item.h"
 #include"geometry.h"
+#include"set"
 //#include"Vertex.h"
 
 namespace geometry
@@ -17,18 +18,24 @@ namespace geometry
 		Vertex* _vertex;
 	public:
 		Halfedge(Loop* lp, Vertex* v);
-		//Halfedge(Vertex& pos);
-
-		Halfedge* setAfter(Halfedge* he); //set:  he->this
-		Halfedge* setBefore(Halfedge* he); //set: this->he
+		
+		Halfedge* insertListAfter(Halfedge* he1, Halfedge* he2 = nullptr); //this->he1->...->he2->next
+		Halfedge* insertListBefore(Halfedge* he1, Halfedge* he2 = nullptr); //prev->he1->...->he2->this
 		Halfedge* setCircleWith(Halfedge* he); //set: this->he->this
+		Halfedge* linkAfter(Halfedge* he); //set: this->he
 
+		Halfedge* findForward(Vertex* aim);
+		Halfedge* findBackward(Vertex* aim);
+		const bool existLoop(Vertex* aim) const;
+
+		void printCheck() const;
 		virtual void travelOutput(int x) const;
 		virtual const GeoType getType() const { return HALFEDGE; }
 		Loop* getLoop() const { return _loop; }
 		Halfedge* getNext() const { return _next; }
 		Halfedge* getPrev() const { return _prev; }
 		Vertex* getVertex() const { return _vertex; }
+		Loop* setLoop(Loop* lp) { _loop = lp; return lp; }
 	};
 }
 

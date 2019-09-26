@@ -4,9 +4,6 @@
 //#include"Halfedge.h"
 namespace geometry
 {
-	//class Vertex;
-	//using VtxIt = std::list<Vertex>::iterator;
-
 	class Vertex:public item
 	{
 	private:

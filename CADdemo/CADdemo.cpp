@@ -12,9 +12,10 @@ int main()
 	float x[8] = { 0.f,4.f,4.f,0.f,0.f,4.f,4.f,0.f };
 	float y[8] = { 0.f,0.f,4.f,4.f,0.f,0.f,4.f,4.f };
 	float z[8] = { 0.f,0.f,0.f,0.f,4.f,4.f,4.f,4.f };
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 20; i++)
 	{
-		model.addVertex(vec3(x[i], y[i], z[i]));
+		model.addVertex(vec3(float(i), 0.f, 0.f));
+		//model.addVertex(vec3(x[i], y[i], z[i]));
 	}
 	
 

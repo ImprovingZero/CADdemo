@@ -15,6 +15,12 @@ namespace geometry
 		Loop* _loop;
 	public:
 		Face(Solid* sd, Vertex* v);
+		Face(Solid* sd, Loop* lp);
+
+		Face* insertListAfter(Face* f1, Face* f2 = nullptr); //this->he1->...->he2->next
+		Face* insertListBefore(Face* f1, Face* f2 = nullptr); //prev->he1->...->he2->this
+		Face* setCircleWith(Face* he); //set: this->he->this
+		Face* linkAfter(Face* he); //set: this->he
 
 		virtual void travelOutput(int x) const;
 		virtual const GeoType getType() const { return FACE; }

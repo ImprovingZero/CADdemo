@@ -59,7 +59,7 @@ inline std::ostream& operator<<(std::ostream& os, vec2& t)
 
 inline float vec2::dot(const vec2& v)
 {
-	return e[0] * v.e[0] + e[1] * v.e[1] + e[2] * v.e[2];
+	return e[0] * v.e[0] + e[1] * v.e[1];
 }
 inline float vec2::cross(const vec2& v)
 {
