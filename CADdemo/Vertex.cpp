@@ -1,14 +1,8 @@
 #include "Vertex.h"
 namespace geometry
 {
-	Vertex::Vertex(vec3 p, Halfedge* halfedge)
-		:_halfedge(halfedge), _pos(p), _next(nullptr), _prev(nullptr) 
+	void Vertex::travelOutput(int x) const
 	{
-
-	}
-
-	Vertex::~Vertex()
-	{
-
+		std::cout << '('<<_pos[0] << ',' << _pos[1] << ',' << _pos[2] <<')';
 	}
 }

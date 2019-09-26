@@ -14,14 +14,17 @@ namespace geometry
 		Face* _face;
 		Halfedge* _halfedge;
 	public:
-		Loop(vec3& pos, Face* face);
-		~Loop();
+		Loop(Face* face, Vertex* v);
 
+		Loop* mev(Vertex* v, Vertex* nv);
+
+		virtual void travelOutput(int x) const;
 		virtual const GeoType getType() const { return LOOP; }
 		Face* getFace() const { return _face; }
 		Loop* getNext() const { return _next; }
 		Loop* getPrev() const { return _prev; }
-		Halfedge* getFirstVertex() const { return _halfedge; }
+		Halfedge* getFirstHalfedge() const { return _halfedge; }
+		inline Halfedge* operator[](int i) const;
 	};
 }
 

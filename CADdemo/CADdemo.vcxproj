@@ -158,6 +158,7 @@
     <ClCompile Include="item.cpp" />
     <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="Loop.cpp" />
+    <ClCompile Include="Point.cpp" />
     <ClCompile Include="Solid.cpp" />
     <ClCompile Include="Vertex.cpp" />
   </ItemGroup>
@@ -169,6 +170,7 @@
     <ClInclude Include="item.h" />
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="Loop.h" />
+    <ClInclude Include="Point.h" />
     <ClInclude Include="Solid.h" />
     <ClInclude Include="vec2.h" />
     <ClInclude Include="vec3.h" />

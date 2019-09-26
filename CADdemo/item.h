@@ -44,6 +44,7 @@ namespace geometry
 	{
 	public:
 		virtual const GeoType getType() const = 0;
+		virtual void travelOutput(int x) const = 0;
 	};
 
 	

@@ -2,18 +2,32 @@
 
 namespace geometry
 {
-	Face::Face(vec3& pos, Solid* solid)
-		:_loop(new Loop(pos,this)), _next(nullptr), _prev(nullptr),_solid(solid)
+	Face::Face(Solid* solid, Vertex* v)
+		:_loop(new Loop(this,v)), _next(nullptr), _prev(nullptr),_solid(solid)
 	{
 	}
-
-	Face::~Face()
+	void Face::travelOutput(int x) const
 	{
-		for (auto p = _loop; p != nullptr; p = p->getNext())
+		std::cout << "  |--Face " << x << ':' << std::endl;
+		int i = 0;
+		auto p = _loop;
+		if (p == nullptr) return;
+		do
 		{
-			auto q = p->getPrev();
-			if (q != nullptr) delete q;
-		}
+			p->travelOutput(i);
+			i++;
+			p = p->getNext();
+		} while (p != _loop && p!=nullptr);
 	}
-
+	inline Loop* Face::operator[](int i) const
+	{
+		auto* ret = _loop;
+		while (i > 0)
+		{
+			if (ret == nullptr) return ret;
+			ret = ret->getNext();
+			i--;
+		}
+		return ret;
+	}
 }

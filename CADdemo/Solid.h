@@ -13,15 +13,15 @@ namespace geometry
 		Solid* _prev;
 		Face* _face;
 	public:
-		Solid(vec3 &pos);
-		~Solid();
-		//Solid(Vertex& v);
+		Solid(Vertex* v);
 
+		virtual void travelOutput(int i) const;
 		virtual const GeoType getType() const { return SOLID; }
 		//Solid* getFace() const { return _solid; }
 		Solid* getNext() const { return _next; }
 		Solid* getPrev() const { return _prev; }
-		Face* getFirstVertex() const { return _face; }
+		Face* getFirstFace() const { return _face; }
+		Face* operator[](int i) const;
 	};
 
 }

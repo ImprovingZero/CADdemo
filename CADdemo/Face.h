@@ -14,15 +14,15 @@ namespace geometry
 		Solid* _solid;
 		Loop* _loop;
 	public:
-		Face(vec3& pos, Solid* solid);
-		~Face();
-		//Face(Vertex &v, Solid* solid);
+		Face(Solid* sd, Vertex* v);
 
+		virtual void travelOutput(int x) const;
 		virtual const GeoType getType() const { return FACE; }
-		Solid* getFace() const { return _solid; }
+		Solid* getSolid() const { return _solid; }
 		Face* getNext() const { return _next; }
 		Face* getPrev() const { return _prev; }
-		Loop* getFirstVertex() const { return _loop; }
+		Loop* getFirstLoop() const { return _loop; }
+		Loop* operator[](int i) const;
 	};
 
 }
