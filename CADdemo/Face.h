@@ -16,10 +16,13 @@ namespace geometry
 	public:
 		Face(Solid* sd, Vertex* v);
 		Face(Solid* sd, Loop* lp);
+		~Face();
+
+		Face* kfmrh(Face* cf); // cull cf in this
 
 		Face* insertListAfter(Face* f1, Face* f2 = nullptr); //this->he1->...->he2->next
 		Face* insertListBefore(Face* f1, Face* f2 = nullptr); //prev->he1->...->he2->this
-		Face* setCircleWith(Face* he); //set: this->he->this
+		//Face* setCircleWith(Face* he); //set: this->he->this
 		Face* linkAfter(Face* he); //set: this->he
 
 		virtual void travelOutput(int x) const;
@@ -29,6 +32,7 @@ namespace geometry
 		Face* getPrev() const { return _prev; }
 		Loop* getFirstLoop() const { return _loop; }
 		Loop* operator[](int i) const;
+		void setLoop(Loop* lp) { _loop = lp; }
 	};
 
 }

@@ -21,6 +21,7 @@ namespace geometry
 	public:
 		Loop(Face* face, Vertex* v);
 		Loop(Face* face, Halfedge* he);
+		~Loop();
 
 		Loop* mev(Vertex* v, Vertex* nv);
 		Face* mef(Vertex* v1, Vertex* v2);
@@ -28,7 +29,7 @@ namespace geometry
 
 		Loop* insertListAfter(Loop* a, Loop* b = nullptr); //this->he1->...->he2->next
 		Loop* insertListBefore(Loop* a, Loop* b = nullptr); //prev->he1->...->he2->this
-		Loop* setCircleWith(Loop* a); //set: this->he->this
+		//Loop* setCircleWith(Loop* a); //set: this->he->this
 		Loop* linkAfter(Loop* a); //set: this->he
 		void extractSelf(); //erase this
 		void eraseList(Halfedge* a, Halfedge* b=nullptr);
@@ -39,7 +40,9 @@ namespace geometry
 		Loop* getNext() const { return _next; }
 		Loop* getPrev() const { return _prev; }
 		Halfedge* getFirstHalfedge() const { return _halfedge; }
+		void setFace(Face* f) { _face = f; }
 		void setFirstHalfedge(Halfedge* a) { _halfedge = a; };
+		void setNext(Loop* lp) { _next = lp; }
 		
 		Halfedge* operator[](int i) const;
 	};

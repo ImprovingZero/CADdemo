@@ -22,6 +22,7 @@ namespace geometry
 		Solid* getPrev() const { return _prev; }
 		Face* getFirstFace() const { return _face; }
 		Face* operator[](int i) const;
+		void setFace(Face* f) { _face = f; }
 	};
 
 }

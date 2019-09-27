@@ -12,16 +12,33 @@ int main()
 	float x[8] = { 0.f,4.f,4.f,0.f,0.f,4.f,4.f,0.f };
 	float y[8] = { 0.f,0.f,4.f,4.f,0.f,0.f,4.f,4.f };
 	float z[8] = { 0.f,0.f,0.f,0.f,4.f,4.f,4.f,4.f };
+
+	/*
+	for (int i = 0; i < 8; i++)
+	{
+		//model.addVertex(vec3(float(i), 0.f, 0.f));
+		model.addVertex(vec3(x[i], y[i], z[i]));
+	}
+	*/
+	
 	for (int i = 0; i < 20; i++)
 	{
 		model.addVertex(vec3(float(i), 0.f, 0.f));
 		//model.addVertex(vec3(x[i], y[i], z[i]));
 	}
 	
+	
 
 	model.tempRoutine();
 
 
 	//TODO:
-	//逆操作中删得只剩一个元素的双向链表next和pre指针需要处理
+	//[v] 析构函数：逆操作中删得只剩一个元素的双向链表next和pre指针需要处理
+	//[ ] 加入空间位置信息后kemr操作需要增加checkReverse操作
+	//[ ] mef操作中的优化 O(n^2)->O(n)
+	//[ ] 在mef构成几何形体的最后一步没办法拓扑区分新面与旧面
+	//[v] setCircleWith函数可删除
+	//[ ] 加入空间位置信息
+	//[ ] sweeping操作
+	//[ ] 可视化展示
 }

@@ -12,11 +12,36 @@ namespace geometry
 	{
 	}
 
+	Loop::~Loop()
+	{
+		if (_next == _prev)
+		{
+			_next->_prev = nullptr;
+			_prev->_next = nullptr;
+		}
+		else
+		{
+			_next->_prev = _prev;
+			_prev->_next = _next;
+		}
+		if (_face->getFirstLoop() == this)
+			_face->setLoop(_next);
+
+		if (_halfedge != nullptr) _halfedge->getPrev()->setNext(nullptr);
+		while (_halfedge != nullptr)
+		{
+			auto* he = _halfedge;
+			_halfedge = _halfedge->getNext();
+			delete he;
+		}
+	}
+
 	Loop* Loop::mev(Vertex* v, Vertex* nv)
 	{
 		auto he1 = new Halfedge(this, v);
 		auto he2 = new Halfedge(this, nv);
-		he1->setCircleWith(he2);
+		he1->insertListAfter(he2);
+		//he1->setCircleWith(he2);
 		
 		if (_halfedge->getNext() == nullptr ||_halfedge->getNext()==_halfedge)
 		{
@@ -89,14 +114,10 @@ namespace geometry
 		}
 		Loop* lp = splitLoop(p, q);
 		Face* ret = new Face(_face->getSolid(), lp);
+		ret->getFirstLoop()->setFace(ret);
 		
-		if (_face->getNext() == nullptr)
-		{
-			_face->setCircleWith(ret);
-		}
-		else _face->insertListAfter(ret);
+		_face->insertListAfter(ret);
 		
-
 		return ret;
 	}
 
@@ -109,14 +130,9 @@ namespace geometry
 
 		Loop* lp = splitLoop(he1, he2);
 		
-		if (_next == nullptr)
-		{
-			setCircleWith(lp);
-		}
-		else insertListAfter(lp);
+		insertListAfter(lp);
 		auto* temp = he1->getPrev();
-		he1->printCheck();
-		temp->printCheck();
+		
 		lp->eraseList(temp, he1);
 		temp = he2->getPrev();
 		this->eraseList(temp, he2);
@@ -127,6 +143,7 @@ namespace geometry
 	{
 		if (b == nullptr) b = a;
 		auto* q = this->_next;
+		if (q == nullptr) q = this;
 		this->_next = a;
 		a->_prev = this;
 		b->_next = q;
@@ -138,6 +155,7 @@ namespace geometry
 	{
 		if (b == nullptr) b = a;
 		auto* q = this->_prev;
+		if (q == nullptr) q = this;
 		this->_prev = b;
 		b->_next = this;
 		a->_prev = q;
@@ -145,6 +163,7 @@ namespace geometry
 		return a;
 	}
 
+	/*
 	Loop* Loop::setCircleWith(Loop* a)
 	{
 		this->_next = a;
@@ -153,6 +172,7 @@ namespace geometry
 		a->_prev = this;
 		return this;
 	}
+	*/
 
 	Loop* Loop::linkAfter(Loop* a)
 	{
@@ -178,8 +198,7 @@ namespace geometry
 		}
 		auto* l = a->getPrev();
 		auto* r = b->getNext();
-		l->printCheck();
-		r->printCheck();
+
 		l->linkAfter(r);
 		a->getLoop()->setFirstHalfedge(l);
 		

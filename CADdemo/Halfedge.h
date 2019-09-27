@@ -21,7 +21,7 @@ namespace geometry
 		
 		Halfedge* insertListAfter(Halfedge* he1, Halfedge* he2 = nullptr); //this->he1->...->he2->next
 		Halfedge* insertListBefore(Halfedge* he1, Halfedge* he2 = nullptr); //prev->he1->...->he2->this
-		Halfedge* setCircleWith(Halfedge* he); //set: this->he->this
+		//Halfedge* setCircleWith(Halfedge* he); //set: this->he->this
 		Halfedge* linkAfter(Halfedge* he); //set: this->he
 
 		Halfedge* extractSelf();
@@ -37,7 +37,8 @@ namespace geometry
 		Halfedge* getNext() const { return _next; }
 		Halfedge* getPrev() const { return _prev; }
 		Vertex* getVertex() const { return _vertex; }
-		Loop* setLoop(Loop* lp) { _loop = lp; return lp; }
+		void setLoop(Loop* lp) { _loop = lp; }
+		void setNext(Halfedge* he) { _next = he; }
 	};
 }
 

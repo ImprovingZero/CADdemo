@@ -12,10 +12,55 @@ namespace geometry
 	{
 	}
 
+	Face::~Face()
+	{
+		if (_next == _prev)
+		{
+			_next->_prev = nullptr;
+			_prev->_next = nullptr;
+		}
+		else
+		{
+			_next->_prev = _prev;
+			_prev->_next = _next;
+		}
+		if (_solid->getFirstFace() == this)
+			_solid->setFace(_next);
+		
+		if (_loop != nullptr) _loop->getPrev()->setNext(nullptr);
+		while (_loop != nullptr)
+		{
+			auto* lp = _loop;
+			_loop = _loop->getNext();
+			delete lp;
+		}
+	}
+
+	Face* Face::kfmrh(Face* cf)
+	{
+		auto* lp = cf->getFirstLoop();
+		if (lp == nullptr)
+		{
+			std::cout << "ERROR::FACE::KFMRH::cf has no loop" << std::endl;
+			return nullptr;
+		}
+		while (lp!=nullptr && lp->getFace() != this)
+		{
+			lp->setFace(this);
+			lp = lp->getNext();
+		}
+		lp = cf->getFirstLoop();
+		_loop->insertListAfter(lp, lp->getPrev());
+		cf->setLoop(nullptr);
+		delete cf;
+		return this;
+	}
+
 	Face* Face::insertListAfter(Face* a, Face* b)
 	{
 		if (b == nullptr) b = a;
 		auto* q = this->_next;
+		if (q == nullptr) q = this;
 		this->_next = a;
 		a->_prev = this;
 		b->_next = q;
@@ -27,6 +72,7 @@ namespace geometry
 	{
 		if (b == nullptr) b = a;
 		auto* q = this->_prev;
+		if (q == nullptr) q = this;
 		this->_prev = b;
 		b->_next = this;
 		a->_prev = q;
@@ -34,6 +80,7 @@ namespace geometry
 		return a;
 	}
 
+	/*
 	Face* Face::setCircleWith(Face* a)
 	{
 		this->_next = a;
@@ -42,6 +89,7 @@ namespace geometry
 		a->_prev = this;
 		return this;
 	}
+	*/
 
 	Face* Face::linkAfter(Face* a)
 	{
@@ -53,7 +101,7 @@ namespace geometry
 
 	void Face::travelOutput(int x) const
 	{
-		std::cout << "  |--Face " << x << ':' << std::endl;
+		std::cout << "  |--Face " << x << ':' << this<<std::endl;
 		int i = 0;
 		auto p = _loop;
 		if (p == nullptr) return;

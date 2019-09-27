@@ -8,7 +8,6 @@ namespace geometry
 	private:
 		std::vector<Solid*> _solid;
 		//std::vector<Point> _point;
-		//std::vector<Vertex*> _vertex;
 		std::vector<Vertex*> _vertex;
 	public:
 		ItemManager() { _solid.clear(); }
@@ -20,10 +19,6 @@ namespace geometry
 
 		void tempRoutine();
 		Solid* kvfs(Vertex* v);
-		//void mev();
-		//const bool mvfs(Vertex* v);
-
-
 	};
 }
 

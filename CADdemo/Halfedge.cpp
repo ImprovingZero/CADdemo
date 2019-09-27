@@ -11,6 +11,7 @@ namespace geometry
 	{
 		if (he2 == nullptr) he2 = he1;
 		auto* q = this->_next;
+		if (q == nullptr) q = this;
 		this->_next = he1;
 		he1->_prev = this;
 		he2->_next = q;
@@ -22,6 +23,7 @@ namespace geometry
 	{
 		if (he2 == nullptr) he2 = he1;
 		auto* q = this->_prev;
+		if (q == nullptr) q = this;
 		this->_prev = he2;
 		he2->_next = this;
 		he1->_prev = q;
@@ -29,6 +31,7 @@ namespace geometry
 		return he1;
 	}
 
+	/*
 	Halfedge* Halfedge::setCircleWith(Halfedge* he)
 	{
 		this->_next = he;
@@ -37,6 +40,7 @@ namespace geometry
 		he->_prev = this;
 		return this;
 	}
+	*/
 
 	Halfedge* Halfedge::linkAfter(Halfedge* he)
 	{
