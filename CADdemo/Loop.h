@@ -24,6 +24,14 @@ namespace geometry
 
 		Loop* mev(Vertex* v, Vertex* nv);
 		Face* mef(Vertex* v1, Vertex* v2);
+		Loop* kemr(Vertex* v1, Vertex* v2);
+
+		Loop* insertListAfter(Loop* a, Loop* b = nullptr); //this->he1->...->he2->next
+		Loop* insertListBefore(Loop* a, Loop* b = nullptr); //prev->he1->...->he2->this
+		Loop* setCircleWith(Loop* a); //set: this->he->this
+		Loop* linkAfter(Loop* a); //set: this->he
+		void extractSelf(); //erase this
+		void eraseList(Halfedge* a, Halfedge* b=nullptr);
 
 		virtual void travelOutput(int x) const;
 		virtual const GeoType getType() const { return LOOP; }
@@ -31,6 +39,8 @@ namespace geometry
 		Loop* getNext() const { return _next; }
 		Loop* getPrev() const { return _prev; }
 		Halfedge* getFirstHalfedge() const { return _halfedge; }
+		void setFirstHalfedge(Halfedge* a) { _halfedge = a; };
+		
 		Halfedge* operator[](int i) const;
 	};
 }

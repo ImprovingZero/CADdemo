@@ -24,6 +24,8 @@ namespace geometry
 		Halfedge* setCircleWith(Halfedge* he); //set: this->he->this
 		Halfedge* linkAfter(Halfedge* he); //set: this->he
 
+		Halfedge* extractSelf();
+
 		Halfedge* findForward(Vertex* aim);
 		Halfedge* findBackward(Vertex* aim);
 		const bool existLoop(Vertex* aim) const;

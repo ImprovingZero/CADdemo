@@ -46,6 +46,13 @@ namespace geometry
 		return p;
 	}
 
+	Halfedge* Halfedge::extractSelf()
+	{
+		this->_prev->_next = this->_next;
+		this->_next->_prev = this->_prev;
+		return this;
+	}
+
 	Halfedge* Halfedge::findForward(Vertex* aim)
 	{
 		if (this->_vertex == aim) return this;
@@ -77,6 +84,15 @@ namespace geometry
 
 	void Halfedge::printCheck() const
 	{
+		/*
+		std::cout << _loop << " ";
+		std::cout << "Pre: ";
+		this->getPrev()->getVertex()->travelOutput(0);
+		std::cout << " -> ";
+		_vertex->travelOutput(0);
+		std::cout << "This: ";
+		*/
+		
 		_vertex->travelOutput(0);
 		std::cout << " -> ";
 		this->getNext()->getVertex()->travelOutput(0);
@@ -85,9 +101,12 @@ namespace geometry
 
 	void Halfedge::travelOutput(int x) const
 	{
+		//system("pause");
 		//std::cout << "  |--Face " << x << ':' << std::endl;
 		//std::cout << "  |    |--Loop " << x << ':' << std::endl;
 		std::cout << "  |    |    |--Halfedge " << x << ": ";
+		printCheck();
+		/*
 		_vertex->travelOutput(0);
 		if (_next != nullptr && _next!=this)
 		{
@@ -95,6 +114,7 @@ namespace geometry
 			_next->_vertex->travelOutput(0);
 		}
 		std::cout << std::endl;
+		*/
 	}
 
 

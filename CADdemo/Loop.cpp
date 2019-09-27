@@ -14,8 +14,6 @@ namespace geometry
 
 	Loop* Loop::mev(Vertex* v, Vertex* nv)
 	{
-		std::cout << "--------" << std::endl;
-		std::cout << v->getPos()[0] << std::endl;
 		auto he1 = new Halfedge(this, v);
 		auto he2 = new Halfedge(this, nv);
 		he1->setCircleWith(he2);
@@ -70,15 +68,10 @@ namespace geometry
 	Face* Loop::mef(Vertex* v1, Vertex* v2)
 	{
 		Halfedge* p = _halfedge->findForward(v1);
-		std::cout << "p: ";
-		p->printCheck();
-
 		//nessesary to clean circle on v1 side:
 		while (p->existLoop(v2)) p = p->getNext()->findForward(v1);
 		Halfedge* q = p->findForward(v2);
 
-		std::cout << "q: ";
-		q->printCheck();
 
 		std::unordered_set<Vertex*> s(0);
 		for (auto* i = p; i != q;)
@@ -89,15 +82,11 @@ namespace geometry
 				auto* s = p->findForward(i->getVertex());
 				auto* t = q->findBackward(i->getVertex());
 				Next = t->getNext();
-				moveLoop(p, q, s, t);
+				if (s!=q->findForward(i->getVertex())) moveLoop(p, q, s, t);
 			}
 			else s.insert(i->getVertex());
 			i = Next;
 		}
-		std::cout << "p: ";
-		p->printCheck();
-		std::cout << "q: ";
-		q->printCheck();
 		Loop* lp = splitLoop(p, q);
 		Face* ret = new Face(_face->getSolid(), lp);
 		
@@ -109,6 +98,100 @@ namespace geometry
 		
 
 		return ret;
+	}
+
+	Loop* Loop::kemr(Vertex* v1, Vertex* v2)
+	{
+		auto* he1 = _halfedge->findForward(v1);
+		while (he1->getNext()->getVertex() != v2) he1 = he1->getNext()->findForward(v1);
+		auto* he2 = _halfedge->findForward(v2);
+		while (he2->getNext()->getVertex() != v1) he2 = he2->getNext()->findForward(v2);
+
+		Loop* lp = splitLoop(he1, he2);
+		
+		if (_next == nullptr)
+		{
+			setCircleWith(lp);
+		}
+		else insertListAfter(lp);
+		auto* temp = he1->getPrev();
+		he1->printCheck();
+		temp->printCheck();
+		lp->eraseList(temp, he1);
+		temp = he2->getPrev();
+		this->eraseList(temp, he2);
+		return lp;
+	}
+
+	Loop* Loop::insertListAfter(Loop* a, Loop* b)
+	{
+		if (b == nullptr) b = a;
+		auto* q = this->_next;
+		this->_next = a;
+		a->_prev = this;
+		b->_next = q;
+		q->_prev = b;
+		return b;
+	}
+
+	Loop* Loop::insertListBefore(Loop* a, Loop* b)
+	{
+		if (b == nullptr) b = a;
+		auto* q = this->_prev;
+		this->_prev = b;
+		b->_next = this;
+		a->_prev = q;
+		q->_next = a;
+		return a;
+	}
+
+	Loop* Loop::setCircleWith(Loop* a)
+	{
+		this->_next = a;
+		this->_prev = a;
+		a->_next = this;
+		a->_prev = this;
+		return this;
+	}
+
+	Loop* Loop::linkAfter(Loop* a)
+	{
+		auto* p = this->_next;
+		this->_next = a;
+		a->_prev = this;
+		return p;
+	}
+
+	void Loop::extractSelf()
+	{
+		this->_prev->_next = this->_next;
+		this->_next->_prev = this->_prev;
+	}
+
+	void Loop::eraseList(Halfedge* a, Halfedge* b)
+	{
+		if (b == nullptr) b = a;
+		if (a->getLoop() != this || b->getLoop() != this)
+		{
+			std::cout << "ERROR::LOOP::REASELIST::NOT_THIS_LOOP" << std::endl;
+			return;
+		}
+		auto* l = a->getPrev();
+		auto* r = b->getNext();
+		l->printCheck();
+		r->printCheck();
+		l->linkAfter(r);
+		a->getLoop()->setFirstHalfedge(l);
+		
+		auto* p = a;
+		while (p != b)
+		{
+			auto* temp = p->getNext();
+			delete p;
+			p = temp;
+		}
+		delete p;
+		
 	}
 
 	void Loop::travelOutput(int x) const

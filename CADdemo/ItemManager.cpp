@@ -25,6 +25,7 @@ namespace geometry
 		auto* fac = sld->getFirstFace();
 		auto* lp = fac->getFirstLoop();
 		
+		/*
 		lp->mev(_vertex[0], _vertex[1]);
 		lp->mev(_vertex[1], _vertex[2]);
 		lp->mev(_vertex[2], _vertex[3]);
@@ -34,13 +35,26 @@ namespace geometry
 		lp->mev(_vertex[1], _vertex[5]);
 		lp->mev(_vertex[2], _vertex[6]);
 		lp->mev(_vertex[3], _vertex[7]);
-		this->travelOutput();
 
 		lp->mef(_vertex[4], _vertex[5]);
 		lp->mef(_vertex[5], _vertex[6]);
 		lp->mef(_vertex[6], _vertex[7]);
 		lp->mef(_vertex[7], _vertex[4]);
-		this->travelOutput();
+		*/
+
+		lp->mev(_vertex[0], _vertex[1]);
+		lp->mev(_vertex[1], _vertex[2]);
+		lp->mev(_vertex[2], _vertex[3]);
+		lp->mef(_vertex[3], _vertex[0]);
+
+		lp->mev(_vertex[0], _vertex[4]);
+		lp->mev(_vertex[4], _vertex[5]);
+		lp->mev(_vertex[5], _vertex[6]);
+		lp->mev(_vertex[6], _vertex[7]);
+		lp->mef(_vertex[4], _vertex[7]);
+
+		lp->kemr(_vertex[4], _vertex[0]);
+
 		/*
 		lp->mev(_vertex[0], _vertex[1]);
 		lp->mev(_vertex[1], _vertex[2]);
@@ -54,13 +68,6 @@ namespace geometry
 		lp->mev(_vertex[8], _vertex[10]);
 		lp->mev(_vertex[0], _vertex[11]);
 		lp->mef(_vertex[3], _vertex[8]);
-		*/
-		
-		/*
-		lp->mev(_vertex[0], _vertex[1]);
-		lp->mev(_vertex[1], _vertex[2]);
-		lp->mev(_vertex[2], _vertex[3]);
-		lp->mef(_vertex[0], _vertex[3]);
 		*/
 		
 		
