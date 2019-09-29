@@ -73,7 +73,7 @@ namespace geometry
 		f->getPrev()->insertListAfter(s, t);
 	}
 
-	Loop* Loop::splitLoop(Halfedge* l, Halfedge* r)
+	Loop* Loop::splitLoop(Halfedge* l, Halfedge* r) //new loop direction: r -> l
 	{
 		auto* lend = r->getPrev();
 		auto* rend = l->getPrev();
@@ -90,26 +90,29 @@ namespace geometry
 		return lp;
 	}
 
-	Face* Loop::mef(Vertex* v1, Vertex* v2)
+	Face* Loop::mef(Vertex* v1, Vertex* v2) 
+		//new face direction: v1 -> v2
+		//exist face direction: v2 -> v1
 	{
+		std::swap(v1, v2);
 		Halfedge* p = _halfedge->findForward(v1);
 		//nessesary to clean circle on v1 side:
 		while (p->existLoop(v2)) p = p->getNext()->findForward(v1);
 		Halfedge* q = p->findForward(v2);
 
 
-		std::unordered_set<Vertex*> s(0);
+		std::unordered_set<Vertex*> S(0);
 		for (auto* i = p; i != q;)
 		{
 			auto* Next = i->getNext();
-			if (s.find(i->getVertex()) != s.end())
+			if (S.find(i->getVertex()) != S.end())
 			{
 				auto* s = p->findForward(i->getVertex());
 				auto* t = q->findBackward(i->getVertex());
 				Next = t->getNext();
 				if (s!=q->findForward(i->getVertex())) moveLoop(p, q, s, t);
 			}
-			else s.insert(i->getVertex());
+			else S.insert(i->getVertex());
 			i = Next;
 		}
 		Loop* lp = splitLoop(p, q);

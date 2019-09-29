@@ -19,8 +19,10 @@ namespace geometry
 		return true;
 	}
 
-	void ItemManager::tempRoutine()
+	void ItemManager::makeWithoutSweeping()
 	{
+
+		//---------make a target solid without sweeping------
 		auto* sld = this->kvfs(_vertex[0]);
 		auto* fac = sld->getFirstFace();
 		auto* lp = fac->getFirstLoop();
@@ -29,19 +31,18 @@ namespace geometry
 		lp->mev(_vertex[0], _vertex[1]);
 		lp->mev(_vertex[1], _vertex[2]);
 		lp->mev(_vertex[2], _vertex[3]);
-		fac = lp->mef(_vertex[3], _vertex[0]);
+		auto* fdown = lp->mef(_vertex[0], _vertex[3]);
 		lp->mev(_vertex[0], _vertex[4]);
 		lp->mev(_vertex[1], _vertex[5]);
 		lp->mev(_vertex[2], _vertex[6]);
 		lp->mev(_vertex[3], _vertex[7]);
-		lp->mef(_vertex[4], _vertex[5]);
-		lp->mef(_vertex[5], _vertex[6]);
-		lp->mef(_vertex[6], _vertex[7]);
-		lp->mef(_vertex[7], _vertex[4]);
-		auto* f1 = lp->getFace();
+		lp->mef(_vertex[5], _vertex[4]);
+		lp->mef(_vertex[6], _vertex[5]);
+		lp->mef(_vertex[7], _vertex[6]);
+		auto* fup = lp->mef(_vertex[7], _vertex[4]);
 		
 		//make a reverse loop on its buttom
-		lp = fac->getFirstLoop();
+		lp = fdown->getFirstLoop();
 		lp->mev(_vertex[0], _vertex[8]);
 		lp->mev(_vertex[8], _vertex[9]);
 		lp->mev(_vertex[9], _vertex[10]);
@@ -59,11 +60,16 @@ namespace geometry
 		lp->mef(_vertex[13], _vertex[14]);
 		lp->mef(_vertex[14], _vertex[15]);
 		auto* f2 = lp->mef(_vertex[12], _vertex[15]);
-		//auto* f2 = lp->getFace(); 
-		//Cannot deduce which face of the final two should be culled
-		f1->kfmrh(f2);
+		
+		fup->kfmrh(f2);
+		
+		
 
 		/*
+		//-------test mef in complex situation-------
+		auto* sld = this->kvfs(_vertex[0]);
+		auto* fac = sld->getFirstFace();
+		auto* lp = fac->getFirstLoop();
 		lp->mev(_vertex[0], _vertex[1]);
 		lp->mev(_vertex[1], _vertex[2]);
 		lp->mev(_vertex[2], _vertex[3]);
@@ -78,6 +84,30 @@ namespace geometry
 		lp->mef(_vertex[3], _vertex[8]);
 		*/
 		
+		this->travelOutput();
+	}
+
+	void ItemManager::makeWithSweeping()
+	{
+		auto* sld = this->kvfs(_vertex[0]);
+		auto* fac = sld->getFirstFace();
+		auto* lp = fac->getFirstLoop();
+
+		lp->mev(_vertex[0], _vertex[1]);
+		lp->mev(_vertex[1], _vertex[2]);
+		lp->mev(_vertex[2], _vertex[3]);
+		auto* fDown = lp->mef(_vertex[0], _vertex[3]);
+
+		lp->mev(_vertex[0], _vertex[4]);
+		lp->mev(_vertex[4], _vertex[5]);
+		lp->mev(_vertex[5], _vertex[6]);
+		lp->mev(_vertex[6], _vertex[7]);
+		auto* facDel = lp->mef(_vertex[7], _vertex[4]);
+
+		lp->kemr(_vertex[0], _vertex[4]);
+
+		fDown->kfmrh(facDel);
+
 		this->travelOutput();
 	}
 

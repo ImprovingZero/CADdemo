@@ -9,27 +9,37 @@ int main()
     std::cout << "Hello World!\n";
 	using namespace geometry;
 	ItemManager model;
-	float x[8] = { 0.f,4.f,4.f,0.f,0.f,4.f,4.f,0.f };
-	float y[8] = { 0.f,0.f,4.f,4.f,0.f,0.f,4.f,4.f };
-	float z[8] = { 0.f,0.f,0.f,0.f,4.f,4.f,4.f,4.f };
-
 	/*
-	for (int i = 0; i < 8; i++)
+	float x[16] = { 0.f,4.f,4.f,0.f,0.f,4.f,4.f,0.f,1.f,2.f,2.f,1.f,1.f,2.f,2.f,1.f };
+	float y[16] = { 0.f,0.f,4.f,4.f,0.f,0.f,4.f,4.f,1.f,1.f,2.f,2.f,1.f,1.f,2.f,2.f };
+	float z[16] = { 0.f,0.f,0.f,0.f,4.f,4.f,4.f,4.f,0.f,0.f,0.f,0.f,4.f,4.f,4.f,4.f };
+	
+	for (int i = 0; i < 16; i++)
 	{
-		//model.addVertex(vec3(float(i), 0.f, 0.f));
 		model.addVertex(vec3(x[i], y[i], z[i]));
 	}
+	model.makeWithoutSweeping();
 	*/
+
+	float x[8] = { 0.f,4.f,4.f,0.f,1.f,2.f,2.f,1.f };
+	float y[8] = { 0.f,0.f,4.f,4.f,1.f,1.f,2.f,2.f };
+	float z[8] = { 0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f };
+
+	for (int i = 0; i < 8; i++)
+	{
+		model.addVertex(vec3(x[i], y[i], z[i]));
+	}
+	model.makeWithSweeping();
 	
+	/*
 	for (int i = 0; i < 20; i++)
 	{
 		model.addVertex(vec3(float(i), 0.f, 0.f));
 		//model.addVertex(vec3(x[i], y[i], z[i]));
 	}
+	*/
 	
 	
-
-	model.tempRoutine();
 
 
 	//TODO:

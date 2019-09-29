@@ -16,9 +16,11 @@ namespace geometry
 		const bool addVertex(vec3 pos);
 		Vertex* v(int i) const { return _vertex[i]; }
 		//Solid* operator[](int i) { return _solid[i]; }
-
-		void tempRoutine();
 		Solid* kvfs(Vertex* v);
+
+		void makeWithoutSweeping();
+		void makeWithSweeping();
+		
 	};
 }
 
