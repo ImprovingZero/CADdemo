@@ -36,6 +36,31 @@ namespace geometry
 		}
 	}
 
+	Loop* Loop::extrude(vec3 dir)
+	{
+		auto* he = _halfedge;
+		auto* end = he->getVertex();
+		auto* firstV = new Vertex(he->getVertex()->getPos() + dir);
+		auto* next = he->getNext();
+		mev(he->getVertex(), firstV);
+		he = next;
+		auto* prevV = firstV;
+
+		bool first = 1;
+		while (he->getVertex() != end)
+		{
+			auto* newV = new Vertex(he->getVertex()->getPos() + dir);
+			next = he->getNext();
+			mev(he->getVertex(), newV);
+			mef(newV, prevV)->travelOutput(0);
+			prevV = newV;
+			he = next;
+		}
+		mef(firstV,prevV)->travelOutput(0);
+		
+		return this;
+	}
+
 	Loop* Loop::mev(Vertex* v, Vertex* nv)
 	{
 		auto he1 = new Halfedge(this, v);
@@ -45,7 +70,6 @@ namespace geometry
 		
 		if (_halfedge->getNext() == nullptr ||_halfedge->getNext()==_halfedge)
 		{
-			//std::cout << "enter here!!" << std::endl;
 			delete _halfedge;
 			_halfedge = he1;
 			return this;

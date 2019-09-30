@@ -16,8 +16,10 @@ namespace geometry
 		Halfedge* _prev;
 		Loop* _loop;
 		Vertex* _vertex;
+		Edge* _edge;
 	public:
 		Halfedge(Loop* lp, Vertex* v);
+		Halfedge(Loop* lp, Vertex* v, Edge* e);
 		
 		Halfedge* insertListAfter(Halfedge* he1, Halfedge* he2 = nullptr); //this->he1->...->he2->next
 		Halfedge* insertListBefore(Halfedge* he1, Halfedge* he2 = nullptr); //prev->he1->...->he2->this
@@ -37,6 +39,8 @@ namespace geometry
 		Halfedge* getNext() const { return _next; }
 		Halfedge* getPrev() const { return _prev; }
 		Vertex* getVertex() const { return _vertex; }
+		Edge* getEdge() const { return _edge; }
+		Halfedge* getTwin() const;
 		void setLoop(Loop* lp) { _loop = lp; }
 		void setNext(Halfedge* he) { _next = he; }
 	};

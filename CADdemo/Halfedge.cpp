@@ -3,7 +3,12 @@
 namespace geometry
 {
 	Halfedge::Halfedge(Loop* lp, Vertex* v)
-		:_vertex(v), _next(nullptr), _prev(nullptr), _loop(lp)
+		:_vertex(v), _next(nullptr), _prev(nullptr), _loop(lp),_edge(nullptr)
+	{
+	}
+
+	Halfedge::Halfedge(Loop* lp, Vertex* v, Edge* e)
+		: _vertex(v), _next(nullptr), _prev(nullptr), _loop(lp),_edge(e)
 	{
 	}
 
@@ -119,6 +124,13 @@ namespace geometry
 		}
 		std::cout << std::endl;
 		*/
+	}
+
+	Halfedge* Halfedge::getTwin() const
+	{
+		if (_edge == nullptr) return nullptr;
+		if (_edge->getFirst() == this) return _edge->getSecond();
+		else return _edge->getFirst();
 	}
 
 

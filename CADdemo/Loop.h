@@ -23,6 +23,8 @@ namespace geometry
 		Loop(Face* face, Halfedge* he);
 		~Loop();
 
+		Loop* extrude(vec3 dir);
+
 		Loop* mev(Vertex* v, Vertex* nv);
 		Face* mef(Vertex* v1, Vertex* v2);
 		Loop* kemr(Vertex* v1, Vertex* v2);

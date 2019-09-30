@@ -103,10 +103,12 @@ namespace geometry
 		lp->mev(_vertex[5], _vertex[6]);
 		lp->mev(_vertex[6], _vertex[7]);
 		auto* facDel = lp->mef(_vertex[7], _vertex[4]);
-
 		lp->kemr(_vertex[0], _vertex[4]);
 
 		fDown->kfmrh(facDel);
+
+		std::cout << lp->getFace() << std::endl;
+		lp->getFace()->extrude(vec3(0.f, 0.f, 1.f));
 
 		this->travelOutput();
 	}

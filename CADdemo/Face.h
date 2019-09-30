@@ -18,6 +18,7 @@ namespace geometry
 		Face(Solid* sd, Loop* lp);
 		~Face();
 
+		Face* extrude(vec3 dir);
 		Face* kfmrh(Face* cf); // cull cf in this
 
 		Face* insertListAfter(Face* f1, Face* f2 = nullptr); //this->he1->...->he2->next
