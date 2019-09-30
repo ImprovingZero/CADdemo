@@ -44,8 +44,6 @@ namespace geometry
 			Face* f1 = nullptr;
 			Face *f2 = nullptr;
 			lp->extrude(dir);
-			//insertListAfter(f1, f2);
-			std::cout << "FACE::EXTRUDE" << std::endl;
 			lp = lp->getNext();
 		} while (lp != _loop);
 		return this;

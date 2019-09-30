@@ -52,11 +52,11 @@ namespace geometry
 			auto* newV = new Vertex(he->getVertex()->getPos() + dir);
 			next = he->getNext();
 			mev(he->getVertex(), newV);
-			mef(newV, prevV)->travelOutput(0);
+			mef(newV, prevV);
 			prevV = newV;
 			he = next;
 		}
-		mef(firstV,prevV)->travelOutput(0);
+		mef(firstV, prevV);
 		
 		return this;
 	}
@@ -66,7 +66,6 @@ namespace geometry
 		auto he1 = new Halfedge(this, v);
 		auto he2 = new Halfedge(this, nv);
 		he1->insertListAfter(he2);
-		//he1->setCircleWith(he2);
 		
 		if (_halfedge->getNext() == nullptr ||_halfedge->getNext()==_halfedge)
 		{
