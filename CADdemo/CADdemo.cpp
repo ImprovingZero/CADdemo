@@ -23,15 +23,16 @@ int main()
 	model.makeWithoutSweeping();
 	*/
 
-	float x[8] = { 0.f,4.f,4.f,0.f,1.f,2.f,2.f,1.f };
-	float y[8] = { 0.f,0.f,4.f,4.f,1.f,1.f,2.f,2.f };
-	float z[8] = { 0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f };
+	float x[12] = { 0.f,5.f,5.f,0.f,1.f,2.f,2.f,1.f,3.f,4.f,4.f,3.f };
+	float y[12] = { 0.f,0.f,5.f,5.f,1.f,1.f,2.f,2.f,3.f,3.f,4.f,4.f };
+	float z[12] = { 0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f };
 
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 12; i++)
 	{
 		model.addVertex(vec3(x[i], y[i], z[i]));
 	}
-	model.makeWithSweeping();
+	//model.makeWithSweeping();
+	model.multiHandle();
 	
 	/*
 	for (int i = 0; i < 20; i++)
@@ -52,5 +53,5 @@ int main()
 	//[v] setCircleWith函数可删除
 	//[v] 加入空间位置信息
 	//[v] sweeping操作
-	//[ ] 可视化展示
+	//[v] 可视化展示
 }

@@ -113,6 +113,39 @@ namespace geometry
 		sld->travelFrame();
 	}
 
+	void ItemManager::multiHandle()
+	{
+		auto* sld = this->kvfs(_vertex[0]);
+		auto* fac = sld->getFirstFace();
+		auto* lp = fac->getFirstLoop();
+
+		lp->mev(_vertex[0], _vertex[1]);
+		lp->mev(_vertex[1], _vertex[2]);
+		lp->mev(_vertex[2], _vertex[3]);
+		auto* fDown = lp->mef(_vertex[0], _vertex[3]);
+
+		lp->mev(_vertex[0], _vertex[4]);
+		lp->mev(_vertex[4], _vertex[5]);
+		lp->mev(_vertex[5], _vertex[6]);
+		lp->mev(_vertex[6], _vertex[7]);
+		auto* facDel = lp->mef(_vertex[7], _vertex[4]);
+		lp->kemr(_vertex[0], _vertex[4]);
+		fDown->kfmrh(facDel);
+
+		lp->mev(_vertex[2], _vertex[10]);
+		lp->mev(_vertex[10], _vertex[11]);
+		lp->mev(_vertex[11], _vertex[8]);
+		lp->mev(_vertex[8], _vertex[9]);
+		facDel = lp->mef(_vertex[9], _vertex[10]);
+		lp->kemr(_vertex[2], _vertex[10]);
+		fDown->kfmrh(facDel);
+
+		lp->getFace()->extrude(vec3(0.f, 0.f, 1.f));
+
+		this->travelOutput();
+		sld->travelFrame();
+	}
+
 	Solid* ItemManager::kvfs(Vertex* v)
 	{
 		_solid.push_back(new Solid(v));
