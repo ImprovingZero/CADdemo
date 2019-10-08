@@ -3,9 +3,8 @@
 namespace geometry
 {
 	Solid::Solid(Vertex* v)
-		: _face(new Face(this,v)), _next(nullptr), _prev(nullptr)
+		: _face(new Face(this,v)), _next(nullptr), _prev(nullptr),_edge(nullptr)
 	{
-
 	}
 
 	void Solid::travelOutput(int x) const
@@ -20,6 +19,36 @@ namespace geometry
 			i++;
 			p = p->getNext();
 		} while (p != _face && p!=nullptr);
+	}
+
+	void Solid::travelFrame() const
+	{
+		auto* e = _edge->getNext();
+		if (_edge!=nullptr) _edge->printCheck();
+		while (e != _edge && e!=nullptr)
+		{
+			e->printCheck();
+			e = e->getNext();
+		}
+		std::cout << "travelFrame Done" << std::endl;
+	}
+
+	void Solid::addEdge(Edge* e)
+	{
+		if (_edge == nullptr)
+		{
+			_edge = e;
+			e->setNext(e);
+			e->setPrev(e);
+		}
+		else
+		{
+			e->setNext(_edge);
+			e->setPrev(_edge->getPrev());
+			_edge->getPrev()->setNext(e);
+			_edge->setPrev(e);
+			_edge = e;
+		}
 	}
 
 	Face* Solid::operator[](int i) const

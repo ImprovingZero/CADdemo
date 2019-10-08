@@ -106,9 +106,12 @@ namespace geometry
 		lp->kemr(_vertex[0], _vertex[4]);
 
 		fDown->kfmrh(facDel);
+		//sld->travelFrame();
+
 		lp->getFace()->extrude(vec3(0.f, 0.f, 1.f));
 
 		this->travelOutput();
+		sld->travelFrame();
 	}
 
 	Solid* ItemManager::kvfs(Vertex* v)

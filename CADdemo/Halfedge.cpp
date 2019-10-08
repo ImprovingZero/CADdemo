@@ -3,13 +3,9 @@
 namespace geometry
 {
 	Halfedge::Halfedge(Loop* lp, Vertex* v)
-		:_vertex(v), _next(nullptr), _prev(nullptr), _loop(lp),_edge(nullptr)
+		:_vertex(v), _next(nullptr), _prev(nullptr), _loop(lp), _edge(nullptr)
 	{
-	}
 
-	Halfedge::Halfedge(Loop* lp, Vertex* v, Edge* e)
-		: _vertex(v), _next(nullptr), _prev(nullptr), _loop(lp),_edge(e)
-	{
 	}
 
 	Halfedge* Halfedge::insertListAfter(Halfedge* he1, Halfedge* he2)
@@ -102,6 +98,7 @@ namespace geometry
 		std::cout << "This: ";
 		*/
 		
+		std::cout << this;
 		_vertex->travelOutput(0);
 		std::cout << " -> ";
 		this->getNext()->getVertex()->travelOutput(0);

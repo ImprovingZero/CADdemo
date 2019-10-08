@@ -12,10 +12,14 @@ namespace geometry
 		Solid* _next;
 		Solid* _prev;
 		Face* _face;
+		Edge* _edge;
 	public:
 		Solid(Vertex* v);
 
 		virtual void travelOutput(int i) const;
+		void travelFrame() const;
+		void addEdge(Edge* e1);
+
 		virtual const GeoType getType() const { return SOLID; }
 		//Solid* getFace() const { return _solid; }
 		Solid* getNext() const { return _next; }

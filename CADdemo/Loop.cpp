@@ -63,8 +63,10 @@ namespace geometry
 
 	Loop* Loop::mev(Vertex* v, Vertex* nv)
 	{
-		auto he1 = new Halfedge(this, v);
-		auto he2 = new Halfedge(this, nv);
+		auto* he1 = new Halfedge(this, v);
+		auto* he2 = new Halfedge(this, nv);
+		auto* e = new Edge(this->getFace()->getSolid(), he1, he2);
+		
 		he1->insertListAfter(he2);
 		
 		if (_halfedge->getNext() == nullptr ||_halfedge->getNext()==_halfedge)
@@ -102,8 +104,12 @@ namespace geometry
 		auto* rend = l->getPrev();
 		rend->linkAfter(r);
 		lend->linkAfter(l);
-		rend->insertListAfter(new Halfedge(this, l->getVertex()));
-		lend->insertListAfter(new Halfedge(this, r->getVertex()));
+		auto* he1 = new Halfedge(this, l->getVertex());
+		auto* he2 = new Halfedge(this, r->getVertex());
+		auto* e = new Edge(this->getFace()->getSolid(), he1, he2);
+		
+		rend->insertListAfter(he1);
+		lend->insertListAfter(he2);
 		_halfedge = r;
 		Loop* lp = new Loop(_face, l);
 		for (auto* p = lp->getFirstHalfedge(); p->getLoop() != lp; p = p->getNext())
