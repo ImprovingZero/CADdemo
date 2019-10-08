@@ -45,6 +45,9 @@
     <ClCompile Include="Point.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Visualization.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="geometry.h">
@@ -81,6 +84,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Point.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Visualization.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

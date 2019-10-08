@@ -14,6 +14,26 @@ namespace geometry
 		//if(he1->getNext()!=nullptr) printCheck();
 	}
 
+	Edge::~Edge()
+	{
+		std::cout << "Edge::~Edge" << this << std::endl;
+		_prev->setNext(_next);
+		_next->setPrev(_prev);
+		_he1->setEdge(nullptr);
+		_he2->setEdge(nullptr);
+		if (_next == nullptr || _next == this)
+		{
+			std::cout << "Edge::~Edge::No Edge" << std::endl;
+			_solid->setEdge(nullptr);
+			return;
+		}
+		if (_solid->getFirstEdge() == this)
+		{
+			std::cout << "Edge::~Edge::Is This" << std::endl;
+			_solid->setEdge(_next);
+		}
+	}
+
 	Edge* Edge::insertListAfter(Edge* a, Edge* b)
 	{
 		if (b == nullptr) b = a;
@@ -46,14 +66,33 @@ namespace geometry
 		return p;
 	}
 
+	void Edge::delSelf()
+	{
+		std::cout << "EDGE::delSelf::";
+		_v1->travelOutput(0);
+		_v2->travelOutput(0);
+		std::cout << std::endl;
+		this->~Edge();
+	}
+
 	void Edge::printCheck() const
 	{
 		auto* v1 = _he1->getVertex();
 		auto* v2 = _he2->getVertex();
+		std::cout << this << ' ';
 		//if (v1 != _v1 && v1!= _v2) std::cout << "WARRNING!!!!" << std::endl;
 		_v1->travelOutput(0);
 		_v2->travelOutput(0);
 		std::cout << std::endl;
+	}
+	void Edge::draw()
+	{
+		glColor3f(1, 0, 0);
+		glLineWidth(3);
+		glBegin(GL_LINES);
+		glVertex3f(_v1->x(), _v1->y(), _v1->z());
+		glVertex3f(_v2->x(), _v2->y(), _v2->z());
+		glEnd();
 	}
 }
 

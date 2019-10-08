@@ -1,5 +1,21 @@
 #include "Face.h"
 
+void CALLBACK tessBeginCB(GLenum which) {
+	glBegin(which);
+}
+
+void CALLBACK tessEndCB() {
+	glEnd();
+}
+
+void CALLBACK tessVertexCB(const GLvoid* data) {
+	const GLdouble* ptr = (const GLdouble*)data;
+	//glColor3dv(ptr + rand() % 5);
+	//glColor3d(ptr[0]+0.3, ptr[1]+0.3, ptr[2]+0.3);
+	glColor3dv(ptr+3);
+	glVertex3dv(ptr);
+}
+
 namespace geometry
 {
 	Face::Face(Solid* solid, Vertex* v)
@@ -136,5 +152,34 @@ namespace geometry
 			i--;
 		}
 		return ret;
+	}
+
+	void Face::draw()
+	{
+		if (_loop == nullptr)
+		{
+			std::cout << "ERROR::FACE::draw::NO_LOOP" << std::endl;
+			return;
+		}
+		GLUtesselator* tobj = gluNewTess();
+		gluTessCallback(tobj, GLU_TESS_BEGIN, (void(CALLBACK*)())tessBeginCB);
+		gluTessCallback(tobj, GLU_TESS_END, (void(CALLBACK*)())tessEndCB);
+		gluTessCallback(tobj, GLU_TESS_VERTEX, (void(CALLBACK*)())tessVertexCB);
+		gluTessBeginPolygon(tobj, nullptr);
+		auto* lp = _loop;
+		do {
+			gluTessBeginContour(tobj);
+			auto* he = lp->getFirstHalfedge();
+			do {
+				auto* v = he->getVertex();
+				gluTessVertex(tobj, v->_glpos, v->_glpos);
+				he = he->getNext();
+			} while (he != lp->getFirstHalfedge() && he!=nullptr);
+			lp = lp->getNext();
+			gluTessEndContour(tobj);
+		} while (lp != _loop && lp!=nullptr);
+		//std::cout<<"face::drawface"<<std::endl;
+		gluTessEndPolygon(tobj);
+		gluDeleteTess(tobj);
 	}
 }

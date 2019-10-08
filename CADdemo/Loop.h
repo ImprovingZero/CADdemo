@@ -31,7 +31,6 @@ namespace geometry
 
 		Loop* insertListAfter(Loop* a, Loop* b = nullptr); //this->he1->...->he2->next
 		Loop* insertListBefore(Loop* a, Loop* b = nullptr); //prev->he1->...->he2->this
-		//Loop* setCircleWith(Loop* a); //set: this->he->this
 		Loop* linkAfter(Loop* a); //set: this->he
 		void extractSelf(); //erase this
 		void eraseList(Halfedge* a, Halfedge* b=nullptr);

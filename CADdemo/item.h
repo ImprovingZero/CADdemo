@@ -30,6 +30,7 @@ namespace geometry
 	class Edge;
 	class Halfedge;
 	class Vertex;
+	class ItemManager;
 	
 	/*
 	using HegIt = std::list<Halfedge>::iterator;

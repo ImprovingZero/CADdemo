@@ -25,8 +25,13 @@ namespace geometry
 		Solid* getNext() const { return _next; }
 		Solid* getPrev() const { return _prev; }
 		Face* getFirstFace() const { return _face; }
+		Edge* getFirstEdge() const { return _edge; }
 		Face* operator[](int i) const;
 		void setFace(Face* f) { _face = f; }
+		void setEdge(Edge* e) { _edge = e; }
+
+		void drawFace();
+		void drawFrame();
 	};
 
 }

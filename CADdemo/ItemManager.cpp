@@ -104,7 +104,6 @@ namespace geometry
 		lp->mev(_vertex[6], _vertex[7]);
 		auto* facDel = lp->mef(_vertex[7], _vertex[4]);
 		lp->kemr(_vertex[0], _vertex[4]);
-
 		fDown->kfmrh(facDel);
 		//sld->travelFrame();
 
@@ -118,5 +117,15 @@ namespace geometry
 	{
 		_solid.push_back(new Solid(v));
 		return _solid.back();
+	}
+	void ItemManager::drawFace()
+	{
+		for (auto* p : _solid)
+			p->drawFace();
+	}
+	void ItemManager::drawFrame()
+	{
+		for (auto* p : _solid)
+			p->drawFrame();
 	}
 }

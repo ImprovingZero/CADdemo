@@ -160,6 +160,8 @@ namespace geometry
 		auto* he2 = _halfedge->findForward(v2);
 		while (he2->getNext()->getVertex() != v1) he2 = he2->getNext()->findForward(v2);
 
+		he1->getEdge()->delSelf();
+
 		Loop* lp = splitLoop(he1, he2);
 		
 		insertListAfter(lp);
@@ -168,6 +170,7 @@ namespace geometry
 		lp->eraseList(temp, he1);
 		temp = he2->getPrev();
 		this->eraseList(temp, he2);
+		temp->getEdge()->delSelf();
 		return lp;
 	}
 
@@ -194,17 +197,6 @@ namespace geometry
 		q->_next = a;
 		return a;
 	}
-
-	/*
-	Loop* Loop::setCircleWith(Loop* a)
-	{
-		this->_next = a;
-		this->_prev = a;
-		a->_next = this;
-		a->_prev = this;
-		return this;
-	}
-	*/
 
 	Loop* Loop::linkAfter(Loop* a)
 	{

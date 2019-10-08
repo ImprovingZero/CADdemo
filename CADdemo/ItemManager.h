@@ -18,6 +18,10 @@ namespace geometry
 		//Solid* operator[](int i) { return _solid[i]; }
 		Solid* kvfs(Vertex* v);
 
+		void drawAll();
+		void drawFrame();
+		void drawFace();
+
 		void makeWithoutSweeping();
 		void makeWithSweeping();
 		

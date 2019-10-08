@@ -19,10 +19,12 @@ namespace geometry
 
 	public:
 		Edge(Solid* s, Halfedge* he1, Halfedge* he2);
+		~Edge();
 
 		Edge* insertListAfter(Edge* a, Edge* b = nullptr); //this->e1->...->e2->next
 		Edge* insertListBefore(Edge* a, Edge* b = nullptr); //prev->e1->...->e2->this
 		Edge* linkAfter(Edge* a); //set: this->e
+		void delSelf();
 
 		void printCheck() const;
 		Halfedge* getFirst() const { return _he1; }
@@ -33,6 +35,8 @@ namespace geometry
 		void setPrev(Edge* e) { _prev = e; }
 		Solid* getSolid() const { return _solid; }
 		//Edge(Vertex* v1, Vertex* v2);
+
+		void draw();
 	};
 }
 

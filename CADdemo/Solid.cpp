@@ -63,4 +63,38 @@ namespace geometry
 		return ret;
 	}
 
+	void Solid::drawFace()
+	{
+		auto* f = _face->getNext();
+		if (_face == nullptr)
+		{
+			std::cout << "ERROR::SOLID::drawFace::NO_FACE" << std::endl;
+			return;
+		}
+		_face->draw();
+		while (f != nullptr && f != _face)
+		{
+			f->draw();
+			f = f->getNext();
+		}
+		
+		glFlush(); //What's this suppose to do??
+	}
+
+	void Solid::drawFrame()
+	{
+		auto* e = _edge->getNext();
+		if (_edge == nullptr)
+		{
+			std::cout << "ERROR::SOLID::drawLine::NO_LINE" << std::endl;
+			return;
+		}
+		_edge->draw();
+		while (e != nullptr && e != _edge)
+		{
+			e->draw();
+			e = e->getNext();
+		}
+	}
+
 }

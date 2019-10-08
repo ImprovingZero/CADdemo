@@ -3,12 +3,14 @@
 
 #include <iostream>
 #include "ItemManager.h"
+#include"Visualization.h"
+
 
 int main()
 {
     std::cout << "Hello World!\n";
 	using namespace geometry;
-	ItemManager model;
+	geometry::ItemManager model;
 	/*
 	float x[16] = { 0.f,4.f,4.f,0.f,0.f,4.f,4.f,0.f,1.f,2.f,2.f,1.f,1.f,2.f,2.f,1.f };
 	float y[16] = { 0.f,0.f,4.f,4.f,0.f,0.f,4.f,4.f,1.f,1.f,2.f,2.f,1.f,1.f,2.f,2.f };
@@ -39,16 +41,16 @@ int main()
 	}
 	*/
 	
-	
+	Visualization* v=new Visualization();
+	v->drawAll(&model);
 
 
 	//TODO:
 	//[v] 析构函数：逆操作中删得只剩一个元素的双向链表next和pre指针需要处理
-	//[ ] 加入空间位置信息后kemr操作需要增加checkReverse操作
-	//[ ] mef操作中的优化 O(n^2)->O(n)
-	//[ ] 在mef构成几何形体的最后一步没办法拓扑区分新面与旧面
+	//[ ] mef操作中的优化 多分叉情况下O(n^2)->O(n)
+	//[v] 在mef构成几何形体的最后一步没办法拓扑区分新面与旧面
 	//[v] setCircleWith函数可删除
-	//[ ] 加入空间位置信息
-	//[ ] sweeping操作
+	//[v] 加入空间位置信息
+	//[v] sweeping操作
 	//[ ] 可视化展示
 }

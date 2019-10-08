@@ -34,6 +34,8 @@ namespace geometry
 		Loop* getFirstLoop() const { return _loop; }
 		Loop* operator[](int i) const;
 		void setLoop(Loop* lp) { _loop = lp; }
+
+		void draw();
 	};
 
 }
