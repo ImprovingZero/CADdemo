@@ -16,20 +16,20 @@ namespace geometry
 
 	Edge::~Edge()
 	{
-		std::cout << "Edge::~Edge" << this << std::endl;
+		//std::cout << "Edge::~Edge" << this << std::endl;
 		_prev->setNext(_next);
 		_next->setPrev(_prev);
 		_he1->setEdge(nullptr);
 		_he2->setEdge(nullptr);
 		if (_next == nullptr || _next == this)
 		{
-			std::cout << "Edge::~Edge::No Edge" << std::endl;
+			//std::cout << "Edge::~Edge::No Edge" << std::endl;
 			_solid->setEdge(nullptr);
 			return;
 		}
 		if (_solid->getFirstEdge() == this)
 		{
-			std::cout << "Edge::~Edge::Is This" << std::endl;
+			//std::cout << "Edge::~Edge::Is This" << std::endl;
 			_solid->setEdge(_next);
 		}
 	}
@@ -68,10 +68,10 @@ namespace geometry
 
 	void Edge::delSelf()
 	{
-		std::cout << "EDGE::delSelf::";
-		_v1->travelOutput(0);
-		_v2->travelOutput(0);
-		std::cout << std::endl;
+		//std::cout << "EDGE::delSelf::";
+		//_v1->travelOutput(0);
+		//_v2->travelOutput(0);
+		//std::cout << std::endl;
 		this->~Edge();
 	}
 

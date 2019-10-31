@@ -61,7 +61,7 @@ namespace geometry
 			Face *f2 = nullptr;
 			lp->extrude(dir);
 			lp = lp->getNext();
-		} while (lp != _loop);
+		} while (lp != _loop && lp!=nullptr);
 		return this;
 	}
 

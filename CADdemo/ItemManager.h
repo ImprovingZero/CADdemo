@@ -7,7 +7,6 @@ namespace geometry
 	{
 	private:
 		std::vector<Solid*> _solid;
-		//std::vector<Point> _point;
 		std::vector<Vertex*> _vertex;
 	public:
 		ItemManager() { _solid.clear(); }
@@ -17,6 +16,8 @@ namespace geometry
 		Vertex* v(int i) const { return _vertex[i]; }
 		//Solid* operator[](int i) { return _solid[i]; }
 		Solid* kvfs(Vertex* v);
+		inline const int getVtxNum() const { return _vertex.size(); }
+		inline const int getSldNum() const { return _solid.size(); }
 
 		void drawFrame();
 		void drawFace();
@@ -24,6 +25,10 @@ namespace geometry
 		void makeWithoutSweeping();
 		void makeWithSweeping();
 		void multiHandle();
+
+		void addPlaneShape(std::vector<int> id);
+		void addHole(int i, std::vector<int> id);
+		void sweepPlaneShape(int i, vec3 dir);
 		
 	};
 }

@@ -3,7 +3,8 @@
 namespace geometry
 {
 	Solid::Solid(Vertex* v)
-		: _face(new Face(this,v)), _next(nullptr), _prev(nullptr),_edge(nullptr)
+		: _face(new Face(this,v)), _faceDown(nullptr),
+		_next(nullptr), _prev(nullptr),_edge(nullptr)
 	{
 	}
 
@@ -19,6 +20,7 @@ namespace geometry
 			i++;
 			p = p->getNext();
 		} while (p != _face && p!=nullptr);
+		std::cout<<std::endl;
 	}
 
 	void Solid::travelFrame() const

@@ -6,7 +6,6 @@ namespace geometry
 		int i = 0;
 		for (auto p : _solid) p->travelOutput(i++);
 		std::cout << "=======================================" << std::endl;
-
 	}
 
 	const bool ItemManager::addVertex(vec3 pos)
@@ -87,7 +86,7 @@ namespace geometry
 		this->travelOutput();
 	}
 
-	void ItemManager::makeWithSweeping()
+	void ItemManager::makeWithSweeping() //test case
 	{
 		auto* sld = this->kvfs(_vertex[0]);
 		auto* fac = sld->getFirstFace();
@@ -113,7 +112,7 @@ namespace geometry
 		sld->travelFrame();
 	}
 
-	void ItemManager::multiHandle()
+	void ItemManager::multiHandle() //test case
 	{
 		auto* sld = this->kvfs(_vertex[0]);
 		auto* fac = sld->getFirstFace();
@@ -143,7 +142,53 @@ namespace geometry
 		lp->getFace()->extrude(vec3(0.f, 0.f, 1.f));
 
 		this->travelOutput();
-		sld->travelFrame();
+		//sld->travelFrame();
+	}
+
+	void ItemManager::addPlaneShape(std::vector<int> id)
+	{
+		auto* sld = this->kvfs(_vertex[id[0]]);
+		auto* fac = sld->getFirstFace();
+		auto* lp = fac->getFirstLoop();
+		
+		for (int i = 0; i < id.size() - 1; i++)
+		{
+			lp->mev(_vertex[id[i]], _vertex[id[i+1]]);
+		}
+		
+		sld->setFaceDown(lp->mef(_vertex[id[0]], _vertex[id[id.size() - 1]]));
+		//fac->setLoop(lp);
+	}
+
+	void ItemManager::addHole(int i, std::vector<int> id)
+	{
+		//std::cout << "addHole::" << i << std::endl;
+		auto* sld = _solid[i];
+		if (sld->getFaceDown()==nullptr)
+		{
+			std::cout << "ERROR::Invalid addHole operation" << std::endl;
+			return;
+		}
+		auto* fDown = sld->getFaceDown();
+		auto* fac = sld->getFirstFace();
+		auto* lp = fac->getFirstLoop();
+
+		auto* v0 = lp->getFirstHalfedge()->getVertex();
+		lp->mev(v0, _vertex[id[0]]);
+		
+		for (int i = 0; i < id.size() - 1; i++)
+		{
+			lp->mev(_vertex[id[i]], _vertex[id[i+1]]);
+		}
+		auto* facDel = lp->mef(_vertex[id[id.size()-1]], _vertex[id[0]]);
+		lp->kemr(v0, _vertex[id[0]]);
+		fDown->kfmrh(facDel);
+	}
+
+	void ItemManager::sweepPlaneShape(int i, vec3 dir)
+	{
+		//std::cout << "sweepPlaneShape: " << i << std::endl;
+		_solid[i]->getFirstFace()->extrude(dir);
 	}
 
 	Solid* ItemManager::kvfs(Vertex* v)

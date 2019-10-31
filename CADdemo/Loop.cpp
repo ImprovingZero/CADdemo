@@ -240,7 +240,7 @@ namespace geometry
 	void Loop::travelOutput(int x) const
 	{
 		//std::cout << "  |--Face " << x << ':' << std::endl;
-		std::cout << "  |    |--Loop " << x << ':' << std::endl;
+		std::cout << "  |    |--Loop " << x << ' '<<this<<':' << std::endl;
 		int i = 0;
 		auto p = _halfedge;
 		if (p == nullptr) return;

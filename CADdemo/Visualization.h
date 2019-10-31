@@ -12,13 +12,6 @@
 
 #pragma comment(lib,"OpenGL32.lib")
 
-/*
-float Controller::yAngle = 0.0;
-float Controller::zAngle = 0.0;
-unsigned int Controller::count = 0;
-bool Controller::keys[1024] = { false };
-*/
-
 class Controller
 {
 	

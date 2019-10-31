@@ -42,9 +42,6 @@
     <ClCompile Include="ItemManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Point.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Visualization.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -81,9 +78,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="ItemManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Point.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Visualization.h">

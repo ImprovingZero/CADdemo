@@ -10,6 +10,7 @@ float zMove = 0.f;
 float xAngle = 0.f;
 float yAngle = 0.f;
 float zAngle = 0.f;
+float xScale = 0.5f;
 int Mode = 0;
 unsigned int count = 0;
 bool keys[1024] = { false };
@@ -54,7 +55,10 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		if (action == GLFW_PRESS)
 			keys[key] = true;
 		else if (action == GLFW_RELEASE)
+		{
 			keys[key] = false;
+			if (key == GLFW_KEY_F)Mode ^= 1;
+		}
 	}
 }
 
@@ -62,19 +66,22 @@ void Movement(float deltaTime)
 {
 	deltaTime *= 20;
 	if (keys[GLFW_KEY_W])
-		yMove += 1.0f * deltaTime;
+		yMove += 0.2f * deltaTime;
 	if (keys[GLFW_KEY_S])
-		yMove -= 1.0f * deltaTime;
+		yMove -= 0.2f * deltaTime;
 	if (keys[GLFW_KEY_A])
-		xMove -= 1.0f * deltaTime;
+		xMove -= 0.2f * deltaTime;
 	if (keys[GLFW_KEY_D])
-		xMove += 1.0f * deltaTime;
+		xMove += 0.2f * deltaTime;
 	if (keys[GLFW_KEY_Q])
-		yAngle += 1.0f * deltaTime*5;
+		yAngle += 1.0f * deltaTime*2;
 	if (keys[GLFW_KEY_E])
-		yAngle -= 1.0f * deltaTime*5;
-	if (keys[GLFW_KEY_F])
-		Mode ^= 1;
+		yAngle -= 1.0f * deltaTime*2;
+	if (keys[GLFW_KEY_Z])
+		xScale += 0.2f * deltaTime;
+	if (keys[GLFW_KEY_X])
+		xScale -= 0.2f * deltaTime;
+	
 }
 
 Visualization::Visualization()
@@ -113,6 +120,7 @@ void Visualization::drawAll(geometry::ItemManager* it)
 		glLoadIdentity();
 		glTranslatef(xMove, yMove, -10.0f);
 		glRotatef(yAngle, 0.0f, 1.0f, 0.0f);
+		glScalef(xScale, xScale, xScale);
 		//glRotatef(zAngle, 0.0f, 0.0f, 1.0f);
 		//glRotatef(180.0, 0.0f, 1.0f, 0.0f);
 		//it->drawFrame();

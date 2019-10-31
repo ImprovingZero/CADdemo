@@ -13,6 +13,7 @@ namespace geometry
 		Solid* _prev;
 		Face* _face;
 		Edge* _edge;
+		Face* _faceDown;
 	public:
 		Solid(Vertex* v);
 
@@ -29,6 +30,8 @@ namespace geometry
 		Face* operator[](int i) const;
 		void setFace(Face* f) { _face = f; }
 		void setEdge(Edge* e) { _edge = e; }
+		void setFaceDown(Face* f) { _faceDown = f; }
+		Face* getFaceDown() { return _faceDown; }
 
 		void drawFace();
 		void drawFrame();
