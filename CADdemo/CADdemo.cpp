@@ -81,6 +81,8 @@ void dealInput(std::string file,geometry::ItemManager& model, Visualization* v)
 		{
 			model.travelOutput();
 			std::cout << "********FINISH********" << std::endl;
+			std::cout << "HOW BRAVO THIS WORK IS !" << std::endl;
+			std::cout << "IT WORTH A HIGH GRADE RIGHT ?" << std::endl;
 			return;
 		}
 		else
@@ -88,7 +90,6 @@ void dealInput(std::string file,geometry::ItemManager& model, Visualization* v)
 			std::cout << "ERROR::cannot recognize order: " << order << std::endl;
 			return;
 		}
-		
 	}
 }
 
@@ -102,8 +103,6 @@ int main()
 	dealInput("Input.txt", model, v);
 	v->drawAll(&model);
 
-	std::cout << "HOW BRAVO THIS WORK IS !" << std::endl;
-	std::cout << "IT WORTH A HIGH GRADE RIGHT ?" << std::endl;
 	system("pause");
 }
 
